@@ -159,7 +159,7 @@
     {{subTemplate "article-param-block" params=article.success _hasType=_hasTypeInSuccessFields section="success"}}
     {{subTemplate "article-param-block" params=article.error _col1="Name" _hasType=_hasTypeInErrorFields section="error"}}
 
-    {{subTemplate "article-sample-request" article=article id=id}}
+    {{subTemplate "article-sample-request" params=article.sampleRequestParameter article=article id=id}}
 
   </article>
 </script>
@@ -224,6 +224,7 @@
 </script>
 
 <script id="template-article-sample-request" type="text/x-handlebars-template">
+
     {{#if article.sampleRequest}}
       <h2>{{__ "Send a Sample Request"}}</h2>
       <form class="form-horizontal">
@@ -269,8 +270,8 @@
               <div class="control-group">
                 <label class="control-label" for="sample-request-param-field-{{field}}">{{field}}</label>
                 <div class="controls">
-                  <div class="input-append">>
-                    <input type="text" placeholder="{{field}}" class="input-xxlarge sample-request-param" data-sample-request-param-name="{{field}}" data-sample-request-param-group="sample-request-param-{{@../index}}">
+                  <div class="input-append">
+					<input type="text" placeholder="{{field}}" class="input-xxlarge sample-request-param" data-sample-request-param-name="{{field}}" data-sample-request-param-group="sample-request-param-{{@../index}}" value="{{getSampleReqParam ../../params field }}">
                     <span class="add-on">{{{type}}}</span>
                   </div>
                 </div>

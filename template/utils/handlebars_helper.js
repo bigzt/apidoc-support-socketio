@@ -19,6 +19,16 @@ define([
     });
 
     /**
+     * Return SampleRequestParameter.
+     * @param string sampleRequestParams
+     * @param string field
+     */
+    Handlebars.registerHelper('getSampleReqParam', function(sampleRequestParams, field) {
+		if( ! sampleRequestParams ) return "";
+		return obj[ field ];
+    });
+
+    /**
      * Return localized Text.
      * @param string text
      */
