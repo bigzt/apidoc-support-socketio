@@ -25,7 +25,7 @@ define([
      */
     Handlebars.registerHelper('getSampleReqParam', function(sampleRequestParams, field) {
 		if( ! sampleRequestParams ) return "";
-		return obj[ field ];
+		return sampleRequestParams[ field ];
     });
 
     /**
