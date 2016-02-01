@@ -39,8 +39,8 @@ define([
           var group = $(element).data("sample-request-header-group-id");
           $root.find("[data-sample-request-header-group=\"" + group + "\"]").each(function(i, element) {
             var key = $(element).data("sample-request-header-name");
-            var value = element.value;
-            if ( ! element.optional && element.defaultValue !== '') {
+            var value = $(element).val();
+            if ( ! element.optional && ! value && element.defaultValue !== '') {
                 value = element.defaultValue;
             }
             header[key] = value;
@@ -54,8 +54,8 @@ define([
           var group = $(element).data("sample-request-param-group-id");
           $root.find("[data-sample-request-param-group=\"" + group + "\"]").each(function(i, element) {
             var key = $(element).data("sample-request-param-name");
-            var value = element.value;
-            if ( ! element.optional && element.defaultValue !== '') {
+            var value = $(element).val();
+            if ( ! element.optional && ! value && element.defaultValue !== '') {
                 value = element.defaultValue;
             }
             param[key] = value;
