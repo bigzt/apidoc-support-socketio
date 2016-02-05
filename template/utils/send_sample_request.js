@@ -5,6 +5,8 @@ define([
   'json5'
 ], function($, io, _, JSON5) {
 
+  var socket;
+
   var initDynamic = function() {
       // Button send
       $(".sample-request-send").off("click");
@@ -101,12 +103,12 @@ define([
 	  if( type.toUpperCase() === 'EMIT' ) {
 		  // type is 'emit', use SOCKET emit, eventName is url
 
-		  var socket;
+		  var totalData = [];
 		  function emitBySocket() {
 			  var eventName = url.replace(/^\//,'');
 			  socket.emit( eventName, param );
-			  
-			  var totalData = [];
+
+			  socket.off( eventName );
 			  socket.on( eventName, function( data ) {
 				  totalData.push( data );
 				  displaySuccess( totalData );
