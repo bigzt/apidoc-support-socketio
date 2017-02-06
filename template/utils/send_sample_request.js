@@ -118,7 +118,7 @@ define([
 		  if( socket && socket.connected ) {
 			  emitBySocket();
 		  } else {
-			  socket = io.connect('/');
+			  socket = io.connect(url);
 			  socket.on('connection', emitBySocket );
 		  }
 
