@@ -69,6 +69,7 @@
   {{#if content}}
     <div id="api-_footer">{{{content}}}</div>
   {{/if}}
+  {{/if}}
 </script>
 
 <script id="template-generator" type="text/x-handlebars-template">
@@ -235,11 +236,25 @@ socket.io NameSpace: {{article.socketnamespace}}{{/if}}</code></pre>
         <fieldset>
           <div class="control-group">
             <div class="controls">
-              <div class="input-prepend">>
+              <div class="input-prepend">
                 <span class="add-on">{{__ "url"}}</span>
                 <input type="text" class="input-xxlarge sample-request-url" value="{{article.sampleRequest.0.url}}" />
               </div>
             </div>
+			{{#if article.socketevent}}
+			<label class="control-label" for="sample-request-header-field-socketio_event}">socketio event</label>
+			<div class="controls">
+				<div class="input-prepend">
+				<input type="text" class="input-xxlarge sample-request-socketevent" value="{{article.socketevent}}" />
+				</div>
+			</div>{{/if}}
+			{{#if article.socketnamespace}}
+			<label class="control-label" for="sample-request-header-field-socketio_namespace}">socketio namespace</label>
+			<div class="controls">
+				<div class="input-prepend">
+				<input type="text" class="input-xxlarge sample-request-socketnamespace" value="{{article.socketnamespace}}" />
+				</div>
+			</div>{{/if}}
           </div>
 
       {{#if article.header}}
