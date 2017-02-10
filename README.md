@@ -15,7 +15,11 @@ This module was forked from [apidoc-support-socketio](https://github.com/b6pzeus
   @apisocketionamespace user
   @apisocketioevent user
 - let the web show socket.io namespace and socket.io event (in index.html)
+- update socket.io lib to 1.3.5
+- support emit event with namespace ( in sendSampleRequest )
+- support listen on event ( in sendSampleRequest )
+- support multiplexing with socket.io 1.3.5
 
 ## Todo
-- change sendSampleRequest to support： emit event with namespace
-- change sendSampleRequest to support： listen on event
+- Debug, when connection disconnect from server side, the namespace can't reconnect until fresh the page.
+- Optimize the respond of 'on' 
