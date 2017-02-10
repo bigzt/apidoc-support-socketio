@@ -92,6 +92,7 @@ define([
 		  }
 	  });
 
+	  if( type.toUpperCase() != 'EMIT' ) {
 	  // flicker
 	  if($root.find(".sample-request-response").is(":visible"))
 		  $root.find(".sample-request-response").fadeTo(1, 0.1);
@@ -99,29 +100,51 @@ define([
 	  $root.find(".sample-request-response").fadeTo(250, 1);
 	  $root.find(".sample-request-response-json").html("Loading...");
 	  refreshScrollSpy();
+	  }
 
 	  if( type.toUpperCase() === 'EMIT' ) {
-		  // type is 'emit', use SOCKET emit, eventName is url
-
-		  var totalData = [];
+		  // type is 'emit', use SOCKET emit
+		var namespace = $root.find(".sample-request-socketnamespace").val().substring(1);
+		var socketevent = $root.find(".sample-request-socketevent").val();
 		  function emitBySocket() {
-			  var eventName = url.replace(/^\//,'');
-			  socket.emit( eventName, param );
+			  var eventName = socketevent.replace(/^\//,'');
+			  window[namespace].emit( eventName, param );
+			  return false;
+			  // socket.off( eventName );
+			  // socket.on( eventName, function( data ) {
+				  // totalData.push( data );
+				  // displaySuccess( totalData );
+			  // });
+		  }
 
-			  socket.off( eventName );
-			  socket.on( eventName, function( data ) {
+		  if( window[namespace] && window[namespace].connected ) {
+			  emitBySocket();
+		  } else {
+			  window[namespace] = io.connect(url + namespace);
+			  window[namespace].on('connection', emitBySocket() );
+		  }
+
+	  } else if ( type.toUpperCase() === 'ON' ){
+		  // type is 'on', use SOCKET on
+		var namespace = $root.find(".sample-request-socketnamespace").val().substring(1);
+		var socketevent = $root.find(".sample-request-socketevent").val();
+		
+		  var totalData = [];
+		  function onBySocket() {
+			  var eventName = socketevent.replace(/^\//,'');
+			  window[namespace].on( eventName, function( data ) {
 				  totalData.push( data );
 				  displaySuccess( totalData );
 			  });
 		  }
 
-		  if( socket && socket.connected ) {
-			  emitBySocket();
+		  if( window[namespace] && window[namespace].connected ) {
+			  onBySocket();
 		  } else {
-			  socket = io.connect(url);
-			  socket.on('connection', emitBySocket );
+			  window[namespace] = io.connect(url + namespace);
+			  window[namespace].on('connection', onBySocket() );
+			  // onBySocket();
 		  }
-
 	  } else {
 		  // send AJAX request, catch success or error callback
 		  var ajaxRequest = {
